@@ -26,33 +26,56 @@ func setupParams(fuelСonsumption, pricePerOneLiter float64, distance int) float
 	return totalCosts
 }
 
+/*
+	consolescanner.Scan()
+
+	switch input := consolescanner.Text(); input {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+*/
+
 func main() {
 	consolescanner := bufio.NewScanner(os.Stdin)
 	//fmt.Println("Welcome to the \"Calculating the cost of the trip\" program")
 	fmt.Println("Добро пожаловать в программу \"Расчет стоимости поездки\"\n")
 	// by default, bufio.Scanner scans newline-separated lines
-	fmt.Print("Введите дистанцию в км : ")
-	consolescanner.Scan()
-	inputDistance := consolescanner.Text()
 
-	fmt.Print("Введите расход топлива на 100 км : ")
-	consolescanner.Scan()
-	inputfuelСonsumption := consolescanner.Text()
+	for {
 
-	fmt.Print("Введите стоимость 1-ого литра в гривнах : ")
-	consolescanner.Scan()
-	inputpricePerOneLiter := consolescanner.Text()
+		fmt.Print("Введите дистанцию в км : ")
+		consolescanner.Scan()
+		inputDistance := consolescanner.Text()
 
-	if err := consolescanner.Err(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		fmt.Print("Введите расход топлива на 100 км : ")
+		consolescanner.Scan()
+		inputfuelСonsumption := consolescanner.Text()
+
+		fmt.Print("Введите стоимость 1-ого литра в гривнах : ")
+		consolescanner.Scan()
+		inputpricePerOneLiter := consolescanner.Text()
+
+		if err := consolescanner.Err(); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		distance, _ := strconv.Atoi(inputDistance)
+		fuelСonsumption, _ := strconv.ParseFloat(inputfuelСonsumption, 64)
+		pricePerOneLiter, _ := strconv.ParseFloat(inputpricePerOneLiter, 64)
+		result := setupParams(fuelСonsumption, pricePerOneLiter, distance)
+		//tc := fmt.Sprintf("Total costs for %.d kilometers: %.2fuah ", distance, result)
+		tc := fmt.Sprintf("Стоимость топлива на %.d километров: %.2fгрн. ", distance, result)
+		fmt.Println(tc)
+
+		fmt.Print("\nПродолжить? (y/n): ")
+		consolescanner.Scan()
+		nextStep := consolescanner.Text()
+
+		if nextStep != "y" {
+			break
+		}
 	}
-
-	distance, _ := strconv.Atoi(inputDistance)
-	fuelСonsumption, _ := strconv.ParseFloat(inputfuelСonsumption, 64)
-	pricePerOneLiter, _ := strconv.ParseFloat(inputpricePerOneLiter, 64)
-	result := setupParams(fuelСonsumption, pricePerOneLiter, distance)
-	//tc := fmt.Sprintf("Total costs for %.d kilometers: %.2fuah ", distance, result)
-	tc := fmt.Sprintf("Стоимость топлива на %.d километров: %.2fгрн. ", distance, result)
-	fmt.Println(tc)
 }
