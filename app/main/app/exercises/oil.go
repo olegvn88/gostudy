@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func setupParams(fuelСonsumption, pricePerOneLiter float64, distance int) float64 {
@@ -44,7 +45,6 @@ func main() {
 	// by default, bufio.Scanner scans newline-separated lines
 
 	for {
-
 		fmt.Print("Введите дистанцию в км : ")
 		consolescanner.Scan()
 		inputDistance := consolescanner.Text()
@@ -70,12 +70,20 @@ func main() {
 		tc := fmt.Sprintf("Стоимость топлива на %.d километров: %.2fгрн. ", distance, result)
 		fmt.Println(tc)
 
-		fmt.Print("\nПродолжить? (y/n): ")
-		consolescanner.Scan()
-		nextStep := consolescanner.Text()
+		for {
+			fmt.Print("\nПродолжить? (y/n или да/нет): ")
+			consolescanner.Scan()
+			nextStep := consolescanner.Text()
+			nextStep = strings.ToLower(nextStep)
 
-		if nextStep != "y" {
-			break
+			if nextStep == "y" || nextStep == "да" {
+				break
+			} else if nextStep == "n" || nextStep == "нет" {
+				fmt.Println("До свидания!")
+				return
+			} else {
+				fmt.Println("Неверный ввод! ")
+			}
 		}
 	}
 }
