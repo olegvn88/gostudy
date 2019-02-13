@@ -13,11 +13,10 @@ func setupParams(fuelСonsumption, pricePerOneLiter float64, distance int) float
 	var distanceInt = float64(distance)
 	consumptionOfLitersPerOneKilometer := fuelСonsumption / 100
 	totalCosts := consumptionOfLitersPerOneKilometer * pricePerOneLiter * distanceInt
-	oneLitersForKilometers := 100 / fuelСonsumption
-	totalLiters := distanceInt / oneLitersForKilometers
+	totalLiters := distanceInt / 100 / fuelСonsumption
 
 	fmt.Println("\nРезультат:")
-	t := fmt.Sprintf("Количество литров на %.d километров: %.1f%s", distance, totalLiters, "л")
+	t := fmt.Sprintf("Количество литров на %.d километров, л: %.1f", distance, totalLiters)
 	fmt.Println(t)
 
 	return totalCosts
@@ -27,7 +26,7 @@ const s = "Неверный воод! Введите число > 0"
 
 func main() {
 	consolescanner := bufio.NewScanner(os.Stdin)
-	fmt.Println("Добро пожаловать в программу \"Расчет стоимости поездки\"\n")
+	fmt.Println("Добро пожаловать в программу \"Расчет стоимости поездки")
 
 	for {
 
@@ -55,7 +54,7 @@ func main() {
 		}
 
 		result := setupParams(fuelСonsumption, pricePerOneLiter, distance)
-		tc := fmt.Sprintf("Стоимость топлива на %.d километров: %.2fгрн. ", distance, result)
+		tc := fmt.Sprintf("Стоимость топлива на %.d километров, грн: %.2f ", distance, result)
 		fmt.Println(tc)
 
 		for {
