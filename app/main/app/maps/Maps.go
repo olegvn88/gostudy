@@ -30,7 +30,7 @@ type persons struct {
 }
 
 func putStructureToMap() {
-	fmt.Println(m2 ,"\n")
+	fmt.Println(m2, "\n")
 	//fmt.Println(Vertex{18,39})
 	//fmt.Println(persons{"Oleg", 30})
 

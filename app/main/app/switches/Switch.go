@@ -1,4 +1,4 @@
-package main
+package switches
 
 import (
 	"fmt"
@@ -7,18 +7,18 @@ import (
 )
 
 func main() {
-	for i := 0;i < 10 ; i++ {
+	for i := 0; i < 10; i++ {
 		defer fmt.Println("Hello world")
 		getCurrentTime()
 		time.Sleep(time.Second)
 	}
 }
 
-func getKindOfOS() string {
+func GetKindOfOS() string {
 	result := runtime.GOOS
 	return result
 }
 
-func getCurrentTime(){
-	fmt.Println(time.Now().Hour(),":", time.Now().Minute(), ":", time.Now().Second())
+func getCurrentTime() {
+	fmt.Println(time.Now().Hour(), ":", time.Now().Minute(), ":", time.Now().Second())
 }

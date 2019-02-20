@@ -13,7 +13,7 @@ func setupParams(fuelСonsumption, pricePerOneLiter float64, distance int) float
 	var distanceInt = float64(distance)
 	consumptionOfLitersPerOneKilometer := fuelСonsumption / 100
 	totalCosts := consumptionOfLitersPerOneKilometer * pricePerOneLiter * distanceInt
-	totalLiters := distanceInt / 100 / fuelСonsumption
+	totalLiters := distanceInt * consumptionOfLitersPerOneKilometer
 
 	fmt.Println("\nРезультат:")
 	t := fmt.Sprintf("Количество литров на %.d километров, л: %.1f", distance, totalLiters)
