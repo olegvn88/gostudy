@@ -1,4 +1,4 @@
-package slices
+package main
 
 import (
 	"fmt"
@@ -27,7 +27,7 @@ func main() {
 		a[i] = i
 	}
 	printSliceAppends("a", a)
-	arr2 := append(a, 2000, 1000, 3000, 5, 6, 7, 44, 20,4,2,56,4,4)
+	arr2 := append(a, 2000, 1000, 3000, 5, 6, 7, 44, 20, 4, 2, 56, 4, 4)
 	fmt.Println("append = ", arr2)
 	fmt.Println("append = ", cap(arr2))
 }
