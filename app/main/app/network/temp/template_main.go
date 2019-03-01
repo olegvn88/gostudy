@@ -17,7 +17,7 @@ func IsNotDone(todo Todo) bool {
 }
 
 func main() {
-	tmpl, err := template.New("templ.html").Funcs(template.FuncMap{"IsNotDone": IsNotDone}).ParseFiles("templ.html")
+	tmpl, err := template.New("templ.html").Funcs(template.FuncMap{"IsNotDone": IsNotDone}).ParseFiles("/home/onest/go/src/github.com/olegvn88/gostudy/app/main/app/network/temp/templ.html")
 
 	if err != nil {
 		log.Fatal("Can not expand template ", err)
