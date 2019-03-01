@@ -18,6 +18,10 @@ type JokeResponse struct {
 }
 
 func main() {
+	GetJoke()
+}
+
+func GetJoke() {
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
 		defer request.Body.Close()
 
@@ -37,8 +41,9 @@ func main() {
 			log.Fatal(err)
 		}
 
-		writer.Write([]byte(joke.Value.Joke))
+		//writer.Write([]byte(joke.Value.Joke))
 
+		writer.Write([]byte(joke.Value.Joke))
 	})
 
 	http.ListenAndServe(":8081", nil)
