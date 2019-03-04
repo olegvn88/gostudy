@@ -1,10 +1,9 @@
-package main
+package sockets
 
 import (
 	"bufio"
 	"fmt"
 	"net"
-	"strings"
 )
 
 func main() {
@@ -12,16 +11,17 @@ func main() {
 	listener, _ := net.Listen("tcp", ":5000")
 
 	for {
+		// Ждем пока не прийдет наш клиент
 		conn, err := listener.Accept()
-		//conn, err := listener.Accept()
 
 		if err != nil {
-			fmt.Println("Can not connect")
+			fmt.Printf("Can not connect!")
 			conn.Close()
 			continue
 		}
-
 		fmt.Println("Connected!")
+
+		//создаем ридер для чтения информации из сокета
 
 		bufReader := bufio.NewReader(conn)
 		fmt.Println("Start reading")
@@ -31,20 +31,17 @@ func main() {
 			defer conn.Close()
 
 			for {
-				rByte, err := bufReader.ReadString('\n')
+				//побайтово читаем
+				rByte, err := bufReader.ReadByte()
 
 				if err != nil {
 					fmt.Println("Can not read!", err)
 					break
 				}
-
-				fmt.Printf("- %s", rByte)
-				if strings.Trim(rByte, "\r\n") == "exit" {
-					conn.Write([]byte("Bye-bye\n"))
-					break
-				}
+				//выводим то, что написали в консоле
+				fmt.Print(string(rByte))
+				conn.Write([]byte("Received!"))
 			}
 		}(conn)
-
 	}
 }
