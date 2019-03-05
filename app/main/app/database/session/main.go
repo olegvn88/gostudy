@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
 	"time"
 )
@@ -18,6 +19,8 @@ var loginFormTmpl = `
 </html>
 `
 
+var sessions = map[string]string{}
+
 func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -31,9 +34,10 @@ func main() {
 
 		username, ok := sessions[sessionID.Value]
 		if !ok {
-			fmt.Fprint
+			fmt.Fprint(w, "Session not found")
+		} else {
+			fmt.Fprintf(w, "Welcome, "+username)
 		}
-		fmt.Fprint(w, "Welcome, "+username)
 	})
 
 	http.HandleFunc("/get_cookie", func(w http.ResponseWriter, r *http.Request) {
@@ -61,4 +65,14 @@ func PanicOnErr(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func RandStringRunes(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
 }
