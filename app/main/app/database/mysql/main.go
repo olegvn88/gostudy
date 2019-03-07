@@ -27,7 +27,7 @@ func main() {
 	var err error
 	// создаем структуру базы данных
 	// но соединение просиходит только при первом запросе
-	db, err := sql.Open("mysql", "root:root@tcp(172.19.0.2:3306)/olnester?charset=utf8&interpolateParams=true")
+	db, err = sql.Open("mysql", "root:root@tcp(172.19.0.2:3306)/olnester?charset=utf8&interpolateParams=true")
 	PanicOnErr(err)
 
 	db.SetMaxOpenConns(10)
@@ -81,7 +81,7 @@ func main() {
 	PanicOnErr(err)
 	fmt.Println("Insert = RowsAffected", affected, "LastInsertID: ", lastID)
 
-	//PrintByID(lastID)
+	PrintByID(lastID)
 
 	result, err = db.Exec(
 		"UPDATE students SET info = ?  where id = ?",
@@ -94,7 +94,7 @@ func main() {
 	PanicOnErr(err)
 	fmt.Println("Update - RowsAffected", affected)
 
-	//PrintByID(lastID)
+	PrintByID(lastID)
 	//return
 
 	// использование prepared statements

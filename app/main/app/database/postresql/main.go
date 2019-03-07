@@ -15,7 +15,7 @@ var (
 func PrintByID(id int64) {
 	var fio string
 	var info sql.NullString
-	//var info string
+	// var info string
 	var score int
 	row := db.QueryRow("SELECT fio, info, score FROM students WHERE id = $1", id)
 	// fmt.Println(row)
@@ -28,32 +28,31 @@ func main() {
 	var err error
 	// создаем структуру базы данных
 	// но соединение просиходит только при первом запросе
-	db, err := sql.Open("postgres", "user=postgres password=root dbname=testbase sslmode=disable")
+	db, err = sql.Open("postgres", "user=postgres password=root dbname=testbase sslmode=disable")
 	PanicForErrors(err)
 
-	db.SetMaxOpenConns(10)
+	//db.SetMaxOpenConns(10)
 
-	fmt.Println("Open Connections", db.Stats().OpenConnections)
+	//fmt.Println("Open Connections", db.Stats().OpenConnections)
 
 	// проверяем, что подключение реально произошло (Делаем запроос)
 	err = db.Ping()
 	PanicForErrors(err)
 
-	fmt.Println("Open Connections", db.Stats().OpenConnections)
+	//fmt.Println("Open Connections", db.Stats().OpenConnections)
 
 	// итерируемся по многим записям
 	// Exec исполняет запрос и возвращает записи
 
-	rows, err := db.Query("SELECT fio, score from students")
+	rows, err := db.Query("SELECT fio from students")
 	PanicForErrors(err)
 
 	for rows.Next() {
 		var fio string
-		var score int
-		err = rows.Scan(&fio, &score)
+		err = rows.Scan(&fio)
 		PanicForErrors(err)
 
-		fmt.Println("rows.Next fio: ", fio, "score: ", score)
+		fmt.Println("rows.Next fio: ", fio)
 	}
 	// надо закрыть соединение, иначе будет течь, а их всего 10
 	rows.Close()
@@ -70,14 +69,16 @@ func main() {
 	// Символ $1 является placeholder-ом, все последующие значения атов-экранируются и подставляются с правильной
 
 	var lastID int64
-	err = db.QueryRow("INSERT INTO students (fio, score) VALUES ($1, 0) RETURNING id",
-		"Oleg Vladislavovich",
+	err = db.QueryRow(
+		"INSERT INTO students (fio, score) VALUES ($1, 0) RETURNING id",
+		"Ivan Ivanov",
 	).Scan(&lastID)
 	PanicForErrors(err)
 
 	fmt.Println("Insert - lastInsertId: ", lastID)
 
 	PrintByID(lastID)
+	return
 }
 
 func PanicForErrors(e error) {
