@@ -83,7 +83,7 @@ func (p PropList) GetMemcachedAddress() string {
 }
 
 func (p PropList) GetDatabaseName() string {
-	p.databaseName, ok = getProperties().Get("databaseName")
+	p.databaseName, ok = getProperties().Get(propData.databaseName)
 	if ok != true {
 		return "Key is not found"
 	}
