@@ -4,10 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql" //driver for data base
+	"github.com/olegvn88/gostudy/app/main/app/database/properties"
 )
 
 var (
-	db *sql.DB
+	db   *sql.DB
+	prop properties.PropList
 )
 
 // PrintByID print student by id
@@ -27,7 +29,9 @@ func main() {
 	var err error
 	// создаем структуру базы данных
 	// но соединение просиходит только при первом запросе
-	db, err = sql.Open("mysql", "root:root@tcp(172.19.0.2:3306)/olnester?charset=utf8&interpolateParams=true")
+	openLink := prop.GetMySQLLogin() + ":" + prop.GetMySQLPassword() + "@tcp(" + prop.GetMySQLAddress() + ")/" + prop.GetDatabaseName() + "?charset=utf8&interpolateParams=true"
+	db, err = sql.Open("mysql", openLink)
+	//db, err = sql.Open("mysql", "root:root@tcp(172.19.0.2:3306)/olnester?charset=utf8&interpolateParams=true")
 	PanicOnErr(err)
 
 	db.SetMaxOpenConns(10)

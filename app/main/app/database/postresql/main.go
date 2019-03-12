@@ -5,10 +5,12 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql" //driver for data base
 	_ "github.com/lib/pq"
+	"github.com/olegvn88/gostudy/app/main/app/database/properties"
 )
 
 var (
-	db *sql.DB
+	db   *sql.DB
+	prop properties.PropList
 )
 
 // PrintByID print student by id
@@ -26,9 +28,14 @@ func PrintByID(id int64) {
 
 func main() {
 	var err error
-	// создаем структуру базы данных
-	// но соединение просиходит только при первом запросе
-	db, err = sql.Open("postgres", "user=postgres password=root dbname=testbase sslmode=disable")
+	var openLink string
+	openLink = "user=" + prop.GetPostgressLogin() + " password=" + prop.GetPostgressPassword() + " host=" + prop.GetPostgresAddress() + " dbname=" + prop.GetDatabaseName() + " sslmode=disable"
+	fmt.Println(openLink)
+	prop.
+		// создаем структуру базы данных
+		// но соединение просиходит только при первом запросе
+		//db, err = sql.Open("postgres", "user=postgres password=root host=172.19.0.3 dbname=testbase sslmode=disable")
+		db, err = sql.Open("postgres", openLink)
 	PanicForErrors(err)
 
 	//db.SetMaxOpenConns(10)
