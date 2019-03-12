@@ -31,11 +31,10 @@ func main() {
 	var openLink string
 	openLink = "user=" + prop.GetPostgressLogin() + " password=" + prop.GetPostgressPassword() + " host=" + prop.GetPostgresAddress() + " dbname=" + prop.GetDatabaseName() + " sslmode=disable"
 	fmt.Println(openLink)
-	prop.
-		// создаем структуру базы данных
-		// но соединение просиходит только при первом запросе
-		//db, err = sql.Open("postgres", "user=postgres password=root host=172.19.0.3 dbname=testbase sslmode=disable")
-		db, err = sql.Open("postgres", openLink)
+	// создаем структуру базы данных
+	// но соединение просиходит только при первом запросе
+	//db, err = sql.Open("postgres", "user=postgres password=root host=172.19.0.3 dbname=testbase sslmode=disable")
+	db, err = sql.Open("postgres", openLink)
 	PanicForErrors(err)
 
 	//db.SetMaxOpenConns(10)

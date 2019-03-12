@@ -1,7 +1,9 @@
 package properties
 
 import (
+	"fmt"
 	"github.com/magiconair/properties"
+	"strconv"
 )
 
 type PropList struct {
@@ -22,8 +24,23 @@ var (
 	}
 )
 
-func getProperties() *properties.Properties {
+/*func getProperties2() *properties.Properties {
 	return properties.MustLoadFile("/home/onest/go/src/github.com/olegvn88/gostudy/app/main/app/database/properties/prop.config", properties.UTF8)
+}*/
+
+func getProperties() *properties.Properties {
+	p := properties.MustLoadFile("/home/onest/go/src/github.com/olegvn88/gostudy/app/main/app/database/properties/prop.config", properties.UTF8)
+	result, ok := p.Get("use_test_properties")
+	res, _ := strconv.ParseBool(result)
+	if ok != true {
+		fmt.Println("Key is not found")
+	}
+	if res == true {
+		return properties.MustLoadFile("/home/onest/go/src/github.com/olegvn88/gostudy/app/main/app/database/properties/test_prop.config", properties.UTF8)
+	} else {
+		return p
+	}
+
 }
 
 func (p PropList) GetPostgressLogin() string {
