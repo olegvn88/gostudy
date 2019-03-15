@@ -12,3 +12,5 @@
 *.out
 .idea/
 *.config
+
+database/properties/config/
