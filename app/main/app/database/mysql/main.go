@@ -9,7 +9,8 @@ import (
 
 var (
 	db   *sql.DB
-	prop properties.PropList
+	prop = properties.JsonProp()
+	//prop properties.PropList
 )
 
 // PrintByID print student by id
@@ -26,10 +27,11 @@ func PrintByID(id int64) {
 }
 
 func main() {
+	fmt.Println("login ", prop.MySQLLogin)
 	var err error
 	// создаем структуру базы данных
 	// но соединение просиходит только при первом запросе
-	openLink := prop.GetMySQLLogin() + ":" + prop.GetMySQLPassword() + "@tcp(" + prop.GetMySQLAddress() + ")/" + prop.GetDatabaseName() + "?charset=utf8&interpolateParams=true"
+	openLink := prop.MySQLLogin + ":" + prop.MySQLPassword + "@tcp(" + prop.MysqlAddress + ")/" + prop.DatabaseName + "?charset=utf8&interpolateParams=true"
 	db, err = sql.Open("mysql", openLink)
 	//db, err = sql.Open("mysql", "root:root@tcp(172.19.0.2:3306)/olnester?charset=utf8&interpolateParams=true")
 	PanicOnErr(err)

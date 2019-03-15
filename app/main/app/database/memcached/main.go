@@ -9,13 +9,13 @@ import (
 
 var (
 	memcacheClient *memcache.Client
-	prop           properties.PropList
+	prop           = properties.JsonProp()
 )
 
 //Memcache - мапка ,которая живет в памяти
 //Там хранят данные, которые не жалко потерять, но к которым нужен быстрый доступ
 func main() {
-	memcacheAddresses := []string{prop.GetMemcachedAddress()}
+	memcacheAddresses := []string{prop.MemcachedAddress}
 	memcacheClient = memcache.New(memcacheAddresses...)
 
 	mKey := "record_21"

@@ -10,7 +10,7 @@ import (
 
 var (
 	db   *sql.DB
-	prop properties.PropList
+	prop = properties.JsonProp()
 )
 
 // PrintByID print student by id
@@ -29,7 +29,7 @@ func PrintByID(id int64) {
 func main() {
 	var err error
 	var openLink string
-	openLink = "user=" + prop.GetPostgressLogin() + " password=" + prop.GetPostgressPassword() + " host=" + prop.GetPostgresAddress() + " dbname=" + prop.GetDatabaseName() + " sslmode=disable"
+	openLink = "user=" + prop.PostgresqlLogin + " password=" + prop.PostgresqlPassword + " host=" + prop.PostgresAddress + " dbname=" + prop.DatabaseName + " sslmode=disable"
 	fmt.Println(openLink)
 	// создаем структуру базы данных
 	// но соединение просиходит только при первом запросе
