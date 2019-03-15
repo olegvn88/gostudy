@@ -17,7 +17,7 @@ type jsonData struct {
 }
 
 func JsonProp() jsonData {
-	jData, err := ioutil.ReadFile("/home/onest/go/src/github.com/olegvn88/gostudy/app/main/app/database/properties/config/properties.json")
+	jData, err := ioutil.ReadFile("/home/onest/go/src/github.com/olegvn88/gostudy/app/main/app/database/properties/config/properties.config")
 	if err != nil {
 		panic(err)
 	}
