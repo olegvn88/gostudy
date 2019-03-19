@@ -14,6 +14,12 @@ type jsonData struct {
 	PostgresqlPassword string `json:"postgresqlPassword"`
 	PostgresAddress    string `json:"postgresAddress"`
 	DatabaseName       string `json:"databaseName"`
+	RedisUser          string `json:"redisUser"`
+	RedisHost          string `json:"redisHost"`
+	RedisPassword      string `json:"redisPassword"`
+	MongoHost          string `json:"mongodbHost"`
+	MongodbUser        string `json:"mongodbUser"`
+	MongodbPassword    string `json:"mongodbPassword"`
 }
 
 func JsonProp() jsonData {
