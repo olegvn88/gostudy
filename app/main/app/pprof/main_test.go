@@ -11,6 +11,8 @@ Nullam maximus `
 
 // go test -bench=. -cpuprofile cpu.out
 
+//pprof - профилирование
+
 func BenchmarkSubstring(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		strings.Contains(haystack, "au1ctor")
