@@ -43,12 +43,12 @@ func (b *Lot) SetNewBid(newBid PlayerBid) bool {
 		b.currentCnt++
 		//finish auction if called maximum price
 		if b.MaxBids <= b.currentCnt {
-			println("finish by count")
+			println("finish by count", b.currentCnt)
 			return true
 		}
 		//finish auction if the maximum bets were
 		if b.MaxPrice <= newBid.Bid {
-			println("finish by bid")
+			println("finish by bid", b.CurrentBid)
 			return true
 		}
 	}
@@ -89,10 +89,10 @@ func makeBid(ctx context.Context, playerID int, lot *Lot, bids chan PlayerBid) {
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
-	lot := &Lot{CurrentBid: 100, MaxBids: 100, MaxPrice: 10000}
+	lot := &Lot{CurrentBid: 100, MaxBids: 5, MaxPrice: 1000}
 	bids := make(chan PlayerBid)
 	//create context which will signal in certain time
-	ctx, finish := context.WithTimeout(context.Background(), time.Second*20)
+	ctx, finish := context.WithTimeout(context.Background(), time.Second*60)
 
 	//run 5 players who will create bets
 	for i := 0; i < 5; i++ {
@@ -112,5 +112,5 @@ LOOP:
 			break LOOP
 		}
 	}
-	fmt.Println("Auction finished by player", lot.PlayerID, "with price", lot.CurrentBid)
+	fmt.Println("Auction is finished by player", lot.PlayerID, "with price", lot.CurrentBid)
 }
